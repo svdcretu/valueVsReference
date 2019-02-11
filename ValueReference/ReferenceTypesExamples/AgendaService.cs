@@ -12,25 +12,28 @@ namespace ValueReference.ReferenceTypesExamples
 
             // 1. Create a method that will allow to update an agenda with following values
             // AgendaColor = Black, Name = Black Agenda, NumberOfFiles = 250, Id = {previousValue} * 1000 + {CurrentYear}
+            myAgenda.SetAgendaProperties(3, "Agenda3", Color.Azure, 22);
 
             // 2. update the object myAgenda created above using the method created at point 1.
             Console.WriteLine($" My Agenda: Id = {myAgenda.Id}, AgendaColor = {myAgenda.AgendaColor}, Name = {myAgenda.Name}, NumberOfFiles = {myAgenda.NumberOfFiles} ");
 
             // 3. Create a method that will allow to create a copy of an agenda reference.
-
-            AgendaClass referenceAgenda = new AgendaClass();
+            AgendaClass referenceAgenda = myAgenda.CreateSameReferenceAgenda();
+            Console.WriteLine($" My Agenda: Id = {referenceAgenda.Id}, AgendaColor = {referenceAgenda.AgendaColor}, Name = {referenceAgenda.Name}, NumberOfFiles = {referenceAgenda.NumberOfFiles} ");
 
             // 4. Ensure that the referenceAgenda is a copy of myAgenda by using the method created at point 3
+            Console.WriteLine(myAgenda == referenceAgenda);
 
             // 5. Create a method that will allow to create a copy of an agenda object with creating a new reference // Create a clone
-
-            AgendaClass copyAgenda = new AgendaClass();
+            AgendaClass copyAgenda = myAgenda.CloneAgenda();
 
             // 6. Ensure that the copyAgenda is a copy of myAgenda by using the method created at point 5
+            Console.WriteLine(myAgenda == copyAgenda);
+ 
 
             // 7. Please replace the [YOUR INPUT] from the bellow lines of code with what you think 
-            Console.WriteLine($" myAgenda == referenceAgenda is {myAgenda == referenceAgenda} and in my opinion is [YOUR INPUT]");
-            Console.WriteLine($" myAgenda == copyAgenda is {myAgenda == copyAgenda} and in my opinion is [YOUR INPUT]");
+            Console.WriteLine($" myAgenda == referenceAgenda is {myAgenda == referenceAgenda} and in my opinion is TRUE");
+            Console.WriteLine($" myAgenda == copyAgenda is {myAgenda == copyAgenda} and in my opinion is FALSE");
 
             referenceAgenda.NumberOfFiles = 9000;
 
