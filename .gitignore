@@ -1,0 +1,7 @@
+bin/
+obj/
+/.vs/ValueReference/v15/*.suo
+/.vs/ValueReference/v15/Server/sqlite3/*.lock
+/.vs/ValueReference/v15/Server/sqlite3/*.ide
+/.vs/ValueReference/v15/Server/sqlite3/*.ide-shm
+/.vs/ValueReference/v15/Server/sqlite3/*.ide-wal
