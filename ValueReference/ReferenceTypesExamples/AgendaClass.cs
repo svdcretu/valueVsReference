@@ -1,4 +1,5 @@
-﻿using System.Drawing;
+﻿using System;
+using System.Drawing;
 
 namespace ValueReference.ReferenceTypesExamples
 {
@@ -20,7 +21,15 @@ namespace ValueReference.ReferenceTypesExamples
             NumberOfFiles = numberOfFiles;
         }
 
-        public AgendaClass CloneAgenda()
+        public void SetHardcodedAgenda()
+        {
+            Id = Id * 1000 + DateTime.Now.Year;
+            Name = "Black Agenda";
+            AgendaColor = Color.Black;
+            NumberOfFiles = 250;
+        }
+
+        public AgendaClass Clone()
         {
             AgendaClass clone = new AgendaClass();
             clone.Id = Id;
@@ -33,6 +42,18 @@ namespace ValueReference.ReferenceTypesExamples
         public AgendaClass CreateSameReferenceAgenda()
         {
             return this;
+        }
+
+        public bool HasSamePropertyValues(AgendaClass agenda)
+        {
+            bool result = Id.Equals(agenda.Id) & Name.Equals(agenda.Name) & AgendaColor.Equals(agenda.AgendaColor) & NumberOfFiles.Equals(agenda.NumberOfFiles);
+            return result;
+        }
+
+        public bool IsCloneOf(AgendaClass agenda)
+        {
+            bool result = (this != agenda) & this.HasSamePropertyValues(agenda);
+            return result;
         }
 
     }
