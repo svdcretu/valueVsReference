@@ -3,7 +3,7 @@ using System.Drawing;
 
 namespace ValueReference.ReferenceTypesExamples
 {
-    public class AgendaClass
+    public class AgendaClass : ICloneable
     {
         public int Id { get; set; }
 
@@ -29,32 +29,26 @@ namespace ValueReference.ReferenceTypesExamples
             NumberOfFiles = 250;
         }
 
-        public AgendaClass Clone()
+        public AgendaClass CreateSameReferenceAgenda()
         {
-            AgendaClass clone = new AgendaClass();
+            return this;
+        }
+
+        public override bool Equals(object obj)
+        {
+            var agenda = (AgendaClass)obj;
+            bool result = Id.Equals(agenda.Id) & Name.Equals(agenda.Name) & AgendaColor.Equals(agenda.AgendaColor) & NumberOfFiles.Equals(agenda.NumberOfFiles);
+            return result;
+        }
+
+        public virtual object Clone()
+        {
+            var clone = new AgendaClass();
             clone.Id = Id;
             clone.Name = Name;
             clone.AgendaColor = AgendaColor;
             clone.NumberOfFiles = NumberOfFiles;
             return clone;
         }
-
-        public AgendaClass CreateSameReferenceAgenda()
-        {
-            return this;
-        }
-
-        public bool HasSamePropertyValues(AgendaClass agenda)
-        {
-            bool result = Id.Equals(agenda.Id) & Name.Equals(agenda.Name) & AgendaColor.Equals(agenda.AgendaColor) & NumberOfFiles.Equals(agenda.NumberOfFiles);
-            return result;
-        }
-
-        public bool IsCloneOf(AgendaClass agenda)
-        {
-            bool result = (this != agenda) & this.HasSamePropertyValues(agenda);
-            return result;
-        }
-
     }
 }

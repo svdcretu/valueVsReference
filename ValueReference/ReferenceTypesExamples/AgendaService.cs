@@ -27,10 +27,10 @@ namespace ValueReference.ReferenceTypesExamples
             Console.WriteLine($"Reference Agenda is {isCopy}copy of My Agenda");
 
             // 5. Create a method that will allow to create a copy of an agenda object with creating a new reference // Create a clone
-            AgendaClass copyAgenda = myAgenda.Clone();
+            AgendaClass copyAgenda = (AgendaClass)myAgenda.Clone();
 
             // 6. Ensure that the copyAgenda is a copy of myAgenda by using the method created at point 5
-            string isClone = copyAgenda.IsCloneOf(myAgenda) ? "" : "not ";
+            string isClone = copyAgenda.Equals(myAgenda) ? "" : "not ";
             Console.WriteLine($"Copy Agenda is {isClone}clone of My Agenda");
 
 
@@ -58,11 +58,11 @@ namespace ValueReference.ReferenceTypesExamples
             // I will be able to create a clone of an existing object like agendaExtension1
 
             AgendaExtension agendaExtension = new AgendaExtension { AgendaColor = Color.Blue, Id = 1, Name = "My Agenda", NumberOfFiles = 25, OwnerName = "My Name" };
-            AgendaExtension agendaExtensionClone = agendaExtension.Clone();
+            AgendaExtension agendaExtensionClone = (AgendaExtension)agendaExtension.Clone();
             AgendaExtension referenceOfAgendaExtension = agendaExtension;
 
             // 10. Ensure that the agendaExtensionClone is a clone of agendaExtension using the clone method defined at point 9.
-            isClone = agendaExtensionClone.IsCloneOf(agendaExtension) ? "" : "not ";
+            isClone = agendaExtensionClone.Equals(agendaExtension) ? "" : "not ";
             Console.WriteLine($"Agenda Extension Clone is {isClone}clone of Agenda Extension");
 
 
@@ -73,7 +73,7 @@ namespace ValueReference.ReferenceTypesExamples
             // replace the {agendaExtension == referenceOfAgendaExtension} with your equality method 
             Console.WriteLine($" agendaExtension == referenceOfAgendaExtension is {agendaExtension.Equals(referenceOfAgendaExtension)} and in my opinion is TRUE");
             // replace the {agendaExtension == agendaExtensionClone} with your equality method 
-            Console.WriteLine($" agendaExtensionClone == agendaExtensionClone is {agendaExtensionClone.IsCloneOf(agendaExtension)} and in my opinion is TRUE");
+            Console.WriteLine($" agendaExtensionClone == agendaExtensionClone is {agendaExtensionClone.Equals(agendaExtension)} and in my opinion is TRUE");
 
             agendaExtension.OwnerName = "This is my agenda!!";
 
@@ -83,7 +83,7 @@ namespace ValueReference.ReferenceTypesExamples
             // replace the {agendaExtension == referenceOfAgendaExtension} with your equality method 
             Console.WriteLine($" agendaExtension == referenceOfAgendaExtension is {agendaExtension.Equals(referenceOfAgendaExtension)} and in my opinion is TRUE");
             // replace the {agendaExtension == agendaExtensionClone} with your equality method 
-            Console.WriteLine($" agendaExtensionClone == agendaExtensionClone is {agendaExtensionClone.IsCloneOf(agendaExtension)} and in my opinion is FALSE");
+            Console.WriteLine($" agendaExtensionClone == agendaExtensionClone is {agendaExtensionClone.Equals(agendaExtension)} and in my opinion is FALSE");
 
         }
     }
