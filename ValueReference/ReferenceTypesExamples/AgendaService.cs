@@ -1,10 +1,15 @@
 ﻿using System;
 using System.Drawing;
 
+using ValueReference.Contracts;
+
 namespace ValueReference.ReferenceTypesExamples
 {
-    public class AgendaService
+    public class AgendaService : IOpen
     {
+        private AgendaClass agenda = new AgendaClass();
+        private bool _isAgendaOpened = false;
+        
         public void ComputeAgenda()
         {
             AgendaClass myAgenda = new AgendaClass { AgendaColor = Color.Blue, Id = 1, Name = "My Agenda", NumberOfFiles = 25 };
@@ -74,6 +79,24 @@ namespace ValueReference.ReferenceTypesExamples
 
             AgendaExtension agendaExtension = new AgendaExtension { AgendaColor = Color.Blue, Id = 1, Name = "My Agenda", NumberOfFiles = 25, OwnerName = "My Name" };
             AgendaExtension agendaExtensionClone = (AgendaExtension)agendaExtension.Clone();
+
+            Console.WriteLine("************** CLONE ************************");
+
+            Console.WriteLine($" agendaExtension: Id = {agendaExtension.Id}, AgendaColor = {agendaExtension.AgendaColor}, Name = {agendaExtension.Name}, NumberOfFiles = {agendaExtension.NumberOfFiles} Owner Name {agendaExtension.OwnerName}");
+            Console.WriteLine($" agendaExtensionClone: Id = {agendaExtensionClone.Id}, AgendaColor = {agendaExtensionClone.AgendaColor}, Name = {agendaExtensionClone.Name}, NumberOfFiles = {agendaExtensionClone.NumberOfFiles} Owner Name {agendaExtensionClone.OwnerName}");
+
+            Console.WriteLine("************** AFTER EDIT ************************");
+            agendaExtension.OwnerName = "Dragos";
+            agendaExtension.AgendaColor = Color.AntiqueWhite;
+
+            agendaExtensionClone.OwnerName = "Codruta";
+            agendaExtensionClone.AgendaColor = Color.Aqua;
+
+            Console.WriteLine($" agendaExtension: Id = {agendaExtension.Id}, AgendaColor = {agendaExtension.AgendaColor}, Name = {agendaExtension.Name}, NumberOfFiles = {agendaExtension.NumberOfFiles} Owner Name {agendaExtension.OwnerName}");
+            Console.WriteLine($" agendaExtensionClone: Id = {agendaExtensionClone.Id}, AgendaColor = {agendaExtensionClone.AgendaColor}, Name = {agendaExtensionClone.Name}, NumberOfFiles = {agendaExtensionClone.NumberOfFiles} Owner Name {agendaExtensionClone.OwnerName}");
+
+            Console.WriteLine("************** END  ************************");
+
             AgendaExtension referenceOfAgendaExtension = agendaExtension;
 
             // 10. Ensure that the agendaExtensionClone is a clone of agendaExtension using the clone method defined at point 9.
@@ -101,10 +124,59 @@ namespace ValueReference.ReferenceTypesExamples
             Console.WriteLine($" agendaExtensionClone == agendaExtensionClone is {agendaExtensionClone.Equals(agendaExtension)} and in my opinion is FALSE");
 
 
+            Console.WriteLine("************** DISPLAY USING METHODS ************************");
 
+            DisplayAgenda(agendaExtension);
+            DisplayAgendaExtension(agendaExtensionClone);
 
+            DisplayAgenda(copyAgenda);
 
+            Console.WriteLine("************** END DISPLAY USING METHODS ************************");
 
+        }
+
+        public void SetHardcodedAgenda1(AgendaClass agenda)
+        {
+            agenda.Id = agenda.Id * 1000 + DateTime.Now.Year;
+            agenda.Name = "Black Agenda";
+            agenda.AgendaColor = Color.Black;
+            agenda.NumberOfFiles = 250;
+        }
+
+        public AgendaClass SetHardcodedAgenda2(AgendaClass agenda)
+        {
+            var newAgenda = (AgendaClass)agenda.Clone();
+            SetHardcodedAgenda1(newAgenda);
+            return newAgenda;
+        }
+
+        public void DisplayAgenda(AgendaClass agenda)
+        {
+            Console.WriteLine($" {agenda.ToString()} Id = {agenda.Id}, AgendaColor = {agenda.AgendaColor}, Name = {agenda.Name}, NumberOfFiles = {agenda.NumberOfFiles}");
+        }
+
+        public void DisplayAgendaExtension(AgendaExtension agenda)
+        {
+            Console.WriteLine($" Agenda Extension: Id = {agenda.Id}, AgendaColor = {agenda.AgendaColor}, Name = {agenda.Name}, NumberOfFiles = {agenda.NumberOfFiles} Owner Name {agenda.OwnerName}");
+        }
+
+        public void Open()
+        {
+            _isAgendaOpened = true;
+            SetHardcodedAgenda1(agenda);
+            Console.WriteLine($"In order to open {agenda.Name} , put it on the table, look after bookmark and drag the bookmark.");
+        }
+
+        public void Close()
+        {
+            SetHardcodedAgenda1(agenda);
+            _isAgendaOpened = false;
+            Console.WriteLine($"In order to close {agenda.Name} , put it on the table, add bookmark where you want and close it.");
+        }
+
+        public bool IsOpened()
+        {
+            return _isAgendaOpened;
         }
     }
 }

@@ -22,7 +22,7 @@ namespace ValueReference.ReferenceTypesExamples
 
         public virtual object Clone()
         {
-            return this.MemberwiseClone();
+            return MemberwiseClone();
         }
     }
 }

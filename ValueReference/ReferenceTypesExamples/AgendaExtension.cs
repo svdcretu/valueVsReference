@@ -6,7 +6,9 @@
 
         public override object Clone()
         {
-            return this.MemberwiseClone();
+            var agenda = (AgendaExtension)base.Clone();
+            agenda.OwnerName = OwnerName;
+            return agenda;
         }
 
         public override bool Equals(object obj)
