@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace ValueReference.ReferenceTypesExamples
+﻿namespace ValueReference.ReferenceTypesExamples
 {
     public class AgendaExtension : AgendaClass
     {
@@ -8,9 +6,7 @@ namespace ValueReference.ReferenceTypesExamples
 
         public override object Clone()
         {
-            AgendaExtension clone = (AgendaExtension)base.Clone();
-            clone.OwnerName = OwnerName;
-            return clone;
+            return this.MemberwiseClone();
         }
 
         public override bool Equals(object obj)

@@ -30,8 +30,9 @@ namespace ValueReference.ReferenceTypesExamples
             AgendaClass copyAgenda = (AgendaClass)myAgenda.Clone();
 
             // 6. Ensure that the copyAgenda is a copy of myAgenda by using the method created at point 5
-            string isClone = copyAgenda.Equals(myAgenda) ? "" : "not ";
+            string isClone = copyAgenda.Equals(myAgenda) & copyAgenda != myAgenda ? "" : "not ";
             Console.WriteLine($"Copy Agenda is {isClone}clone of My Agenda");
+
 
 
             // 7. Please replace the [YOUR INPUT] from the bellow lines of code with what you think 

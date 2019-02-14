@@ -43,12 +43,7 @@ namespace ValueReference.ReferenceTypesExamples
 
         public virtual object Clone()
         {
-            var clone = new AgendaClass();
-            clone.Id = Id;
-            clone.Name = Name;
-            clone.AgendaColor = AgendaColor;
-            clone.NumberOfFiles = NumberOfFiles;
-            return clone;
+            return this.MemberwiseClone();
         }
     }
 }
