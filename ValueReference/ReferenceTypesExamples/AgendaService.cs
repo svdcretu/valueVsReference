@@ -12,28 +12,42 @@ namespace ValueReference.ReferenceTypesExamples
 
             // 1. Create a method that will allow to update an agenda with following values
             // AgendaColor = Black, Name = Black Agenda, NumberOfFiles = 250, Id = {previousValue} * 1000 + {CurrentYear}
-            //Name: SetHardcodedAgenda();
+
+            AgendaClass SetHardcodedAgenda(AgendaClass agenda)
+            {
+                var hardcodedAgenda = new AgendaClass()
+                {
+                    Id = agenda.Id * 1000 + DateTime.Now.Year,
+                    Name = "Black Agenda",
+                    AgendaColor = Color.Black,
+                    NumberOfFiles = 250
+                };
+                return hardcodedAgenda;
+            }
 
             // 2. update the object myAgenda created above using the method created at point 1.
-            myAgenda.SetHardcodedAgenda();
+            myAgenda = SetHardcodedAgenda(myAgenda);
             Console.WriteLine($" My Agenda: Id = {myAgenda.Id}, AgendaColor = {myAgenda.AgendaColor}, Name = {myAgenda.Name}, NumberOfFiles = {myAgenda.NumberOfFiles} ");
 
             // 3. Create a method that will allow to create a copy of an agenda reference.
-            AgendaClass referenceAgenda = myAgenda.CreateSameReferenceAgenda();
+            T CreateSamereferenceObject<T>(object o)
+            {
+                return (T)o;
+            }
+
+            AgendaClass referenceAgenda = CreateSamereferenceObject<AgendaClass>(myAgenda);
             Console.WriteLine($" My Agenda: Id = {referenceAgenda.Id}, AgendaColor = {referenceAgenda.AgendaColor}, Name = {referenceAgenda.Name}, NumberOfFiles = {referenceAgenda.NumberOfFiles} ");
 
             // 4. Ensure that the referenceAgenda is a copy of myAgenda by using the method created at point 3
-            string isCopy = myAgenda == referenceAgenda ? "" : "not ";
+            string isCopy = Object.ReferenceEquals(myAgenda, referenceAgenda) ? "" : "not ";
             Console.WriteLine($"Reference Agenda is {isCopy}copy of My Agenda");
 
             // 5. Create a method that will allow to create a copy of an agenda object with creating a new reference // Create a clone
             AgendaClass copyAgenda = (AgendaClass)myAgenda.Clone();
 
-            // 6. Ensure that the copyAgenda is a copy of myAgenda by using the method created at point 5
+            // 6. Ensure that the copyAgenda is a copy(clone) of myAgenda by using the method created at point 5
             string isClone = copyAgenda.Equals(myAgenda) & copyAgenda != myAgenda ? "" : "not ";
             Console.WriteLine($"Copy Agenda is {isClone}clone of My Agenda");
-
-
 
             // 7. Please replace the [YOUR INPUT] from the bellow lines of code with what you think 
             Console.WriteLine($" myAgenda == referenceAgenda is {myAgenda == referenceAgenda} and in my opinion is TRUE");
@@ -85,6 +99,11 @@ namespace ValueReference.ReferenceTypesExamples
             Console.WriteLine($" agendaExtension == referenceOfAgendaExtension is {agendaExtension.Equals(referenceOfAgendaExtension)} and in my opinion is TRUE");
             // replace the {agendaExtension == agendaExtensionClone} with your equality method 
             Console.WriteLine($" agendaExtensionClone == agendaExtensionClone is {agendaExtensionClone.Equals(agendaExtension)} and in my opinion is FALSE");
+
+
+
+
+
 
         }
     }

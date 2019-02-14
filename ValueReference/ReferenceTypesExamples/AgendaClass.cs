@@ -13,27 +13,6 @@ namespace ValueReference.ReferenceTypesExamples
 
         public int NumberOfFiles { get; set; }
 
-        public void SetAgendaProperties(int id, string name, Color color, int numberOfFiles)
-        {
-            Id = id;
-            Name = name;
-            AgendaColor = color;
-            NumberOfFiles = numberOfFiles;
-        }
-
-        public void SetHardcodedAgenda()
-        {
-            Id = Id * 1000 + DateTime.Now.Year;
-            Name = "Black Agenda";
-            AgendaColor = Color.Black;
-            NumberOfFiles = 250;
-        }
-
-        public AgendaClass CreateSameReferenceAgenda()
-        {
-            return this;
-        }
-
         public override bool Equals(object obj)
         {
             var agenda = (AgendaClass)obj;
